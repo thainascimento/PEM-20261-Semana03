@@ -1,0 +1,193 @@
+#include <stdio.h>
+// Biblioteca padrão de entrada e saída
+// printf() (mostrar na tela)
+// scanf() (ler dados digitados pelo usuário)
+
+int main(){
+
+    // Vetor que armazena os IDs dos produtos
+    // O tamanho é 10, então pode cadastrar até 10 produtos
+    int idProduto[10];
+
+    // Variável que guarda a opção escolhida no menu
+    int opcao;
+
+    // Variável padrao usada como contador nos loops (for)
+    int i;
+
+    // Variável usada quando quero buscar um produto no vetor
+    int busca;
+
+    // Variável usada para guardar um novo ID digitado pelo usuário
+    int novoId;
+
+    // Variável usada para verificar se encontrou ou não um produto
+    // 0 significa que não encontrou
+    // 1 significa que encontrou
+    int encontrado;
+
+
+    // o for percorre todo o vetor
+    // Serve para inicializar todas as posições com 0
+    // O valor 0 significa que a posição está vazia (sem produto)
+    for(i = 0; i < 10; i++){
+        idProduto[i] = 0;
+    }
+
+
+    // Estrutura de repetição do tipo do-while
+    // O menu será executado pelo menos uma vez  
+    // e continuará repetindo até o usuário escolher sair (opção 0)
+    do{
+
+        // Exibe o menu para o usuário
+        printf("\n--------MENU--------\n");
+        printf("1 - Incluir produto\n");
+        printf("2 - Consultar produto\n");
+        printf("3 - Alterar produto\n");
+        printf("4 - Excluir produto\n");
+        printf("5 - Listar produtos\n");
+        printf("0 - Sair\n");
+
+        printf("Digite a opcao: ");
+        scanf("%d", &opcao); // scanf lê o valor digitado pelo usuário. &opcao significa o endereço da variável onde o valor será guardado
+
+
+        // OPÇÃO 1 - incluir o prod. user escolheu a op 1
+    
+        if(opcao == 1){  // se a opcao digitada for igual a 1
+
+            printf("Digite o ID do produto: ");
+            scanf("%d", &novoId); // usuário digita o ID que deseja cadastrar
+
+            // percorre o vetor procurando uma posição vazia
+            for(i = 0; i < 10; i++){
+
+                // se a posição for 0 significa que está livre
+                if(idProduto[i] == 0){
+
+                    // salva o novo ID nessa posição
+                    idProduto[i] = novoId;
+
+                    printf("Produto cadastrado na posicao %d\n", i);
+
+                    // break encerra o for imediatamente
+                    // porque já encontrou onde salvar o produto
+                    break;
+                }
+            }
+        }
+
+
+
+        // OPÇÃO 2 - consultar o prod.
+        if(opcao == 2){
+
+            printf("Digite o ID do produto: ");
+
+            // usuário digita o ID que deseja procurar
+            scanf("%d", &busca);
+
+            // assume inicialmente que o produto não foi encontrado
+            encontrado = 0;
+
+            // percorre todo o vetor procurando o ID
+            for(i = 0; i < 10; i++){
+
+                // se o valor da posição for igual ao ID buscado
+                if(idProduto[i] == busca){
+
+                    printf("Produto encontrado na posicao %d\n", i);
+
+                    // marca que encontrou o produto
+                    encontrado = 1;
+
+                    // interrompe o loop porque já achpu
+                    break;
+                }
+            }
+
+            // se terminou o loop e não encontrou o produto
+            if(encontrado == 0){
+                printf("Produto nao encontrado\n");
+            }
+        }
+
+
+
+        // OPÇÃO 3 - alterar prod.
+        if(opcao == 3){
+
+            printf("Digite o ID que deseja alterar: ");
+
+            // usuário digita qual produto quer alterar
+            scanf("%d", &busca);
+
+            // percorre o vetor procurando o produto
+            for(i = 0; i < 10; i++){
+
+                if(idProduto[i] == busca){
+
+                    printf("Digite o novo ID: ");
+
+                    // lê o novo valor
+                    scanf("%d", &novoId);
+
+                    // substitui o ID antigo pelo novo
+                    idProduto[i] = novoId;
+
+                    printf("Produto alterado\n");
+
+                    // encerra o loop
+                    break;
+                }
+            }
+        }
+
+        // OPÇÃO 4 - excluir prod.
+        if(opcao == 4){
+
+            printf("Digite o ID para excluir: ");
+
+            scanf("%d", &busca);
+
+            // percorre o vetor procurando o produto
+            for(i = 0; i < 10; i++){
+
+                if(idProduto[i] == busca){
+
+                    // a exclusão é feita substituindo o valor por 0
+                    // isso significa que a posição fica vazia, livre
+                    idProduto[i] = 0;
+
+                    printf("Produto excluido\n");
+
+                    break;
+                }
+            }
+        }
+
+        // OPÇÃO 5 - listar os prod.
+        if(opcao == 5){
+
+            printf("\nLista de produtos:\n");
+
+            // percorre todas as posições do vetor
+            for(i = 0; i < 10; i++){
+
+                // mostra apenas posições que tem produto
+                if(idProduto[i] != 0){
+
+                    printf("Posicao %d >> %d\n", i, idProduto[i]);
+
+                }
+            }
+        }
+
+    }
+    while(opcao != 0); 
+    // enquanto a opção for diferente de 0 o menu continua
+
+    // quando o usuário escolher 0 o programa termina
+    return 0;
+}
